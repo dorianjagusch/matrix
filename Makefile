@@ -9,8 +9,8 @@ XFLAGS = -g -Wconversion -Wshadow
 
 RM = /bin/rm
 
-INC_FILES := Matrix Vector
-FILES := main
+INC_FILES := Matrix Vector utils
+FILES :=
 
 S = src
 I = inc
