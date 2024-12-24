@@ -205,6 +205,25 @@ int main(void)
             // [0., 1.]
         }
         {
+            Matrix<float, 3, 2> a({
+                {1., 2., 3.}, // Column 0
+                {4., 5., 6.}, // Column 1
+            });
+
+            Matrix<float, 2, 3> b({
+                {7., 10.}, // Column 0
+                {8., 11.}, // Column 1
+                {9., 12.}, // Column 2
+            });
+
+            std::cout << "Matrix A:\n" << a << std::endl;
+            std::cout << "\nMatrix B:\n" << b << std::endl;
+
+            auto c = a * b;
+
+            std::cout << "\nMatrix C (A * B):\n" << c << std::endl;
+        }
+        {
             Matrix<float, 2, 2> u({
                 {1., 0.},
                 {0., 1.},
@@ -399,11 +418,9 @@ int main(void)
             // 3
         }
         {
-            Matrix<float, 4, 3> u({
-                {1., 2., 0., 0.},
-                {2., 4., 0., 0.},
-                {-1., 2., 1., 1.}
-            });
+            Matrix<float, 4, 3> u({{1., 2., 0., 0.},
+                                   {2., 4., 0., 0.},
+                                   {-1., 2., 1., 1.}});
             std::cout << u.rank() << std::endl;
             // 2
         }

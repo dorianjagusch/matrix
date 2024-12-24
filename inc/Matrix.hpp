@@ -34,14 +34,9 @@ private:
         }
     }
 
+
 public:
-    Matrix()
-    {
-        for (auto &col : values)
-        {
-            col = Vector<T, nRow>();
-        }
-    }
+    Matrix() = default;
 
     Matrix(T value)
     {
@@ -152,6 +147,29 @@ public:
         return result;
     };
 
+    Vector<T, nCol> getRow(size_t index) const{
+        Vector<T, nCol> result;
+        for (size_t i = 0; i < nCol; i++)
+        {
+            result[i] = values[i][index];
+        }
+        return result;
+    }
+
+    template <size_t nOtherCol>
+    Matrix<T, nRow, nOtherCol> operator*(const Matrix<T, nCol, nOtherCol> &other) const
+    {
+        Matrix<T, nRow, nOtherCol> result;
+        for (size_t i = 0; i < nRow; i++)
+        {
+            for (size_t j = 0; j < nOtherCol; j++)
+            {
+                result[j][i] = this->getRow(i).dot(other[j]);
+            }
+        }
+        return result;
+    }
+
     bool operator==(own_type &other) const
     {
         for (size_t i = 0; i < nCol; i++)
@@ -175,20 +193,6 @@ public:
         return values[index];
     }
 
-    template <size_t nOtherCol>
-    Matrix<T, nRow, nOtherCol> operator*(const Matrix<T, nCol, nOtherCol> &other) const
-    {
-        Matrix<T, nRow, nOtherCol> result;
-        Matrix<T, nOtherCol, nCol> other_transposed = other.transpose();
-        for (size_t i = 0; i < nRow; i++)
-        {
-            for (size_t j = 0; j < nOtherCol; j++)
-            {
-                result[j][i] = values[j].dot(other_transposed[i]);
-            }
-        }
-        return result;
-    }
 
     own_type identity_matrix() const
     {
